@@ -24,7 +24,6 @@ public class LeetCode108 {
         return sortedArrayToBST(nums, 0, nums.length - 1);
     }
 
-    //TODO 未完成
     public TreeNode sortedArrayToBST(int[] nums, int start, int end) {
         if(start > end){
             return null;
@@ -32,6 +31,14 @@ public class LeetCode108 {
         if(start == end){
             return new TreeNode(nums[start]);
         }
-        return null;
+        int mid = start + (end - start)/2;
+        TreeNode root = new TreeNode(nums[mid]);
+        if(mid == start){
+            root.right = new TreeNode(nums[end]);
+        }else {
+            root.left = sortedArrayToBST(nums, start, mid - 1);
+            root.right = sortedArrayToBST(nums, mid + 1, end);
+        }
+        return root;
     }
 }

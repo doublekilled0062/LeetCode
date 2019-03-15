@@ -1,5 +1,6 @@
 /**
- * 小猫驯鹿
+ * 小猫寻路
+ * 实际上是一个递归
  */
 public class CatRoad {
     public class CatNode{
