@@ -18,7 +18,8 @@
  */
 public class LeetCode69 {
     /**
-     * 牛顿迭代法 切线方程 Y = f'(X)(X - Xn) + Xn
+     * 牛顿迭代法 切线方程 Y = f'(X)(X - Xn) + f(Xn)
+     * 数学上切线方程一般写成 Y - Yn = f'(X)(X - Xn) Yn = f(Xn)
      * Xk+1 = Xk - f(Xk)/f'(Xk)
      * @param x
      * @return
