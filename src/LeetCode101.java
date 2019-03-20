@@ -165,24 +165,8 @@ public class LeetCode101 {
     }
 
     public static void main(String[] args) {
-        TreeNode rootNode = new TreeNode(1);
-        TreeNode node1 = new TreeNode(2);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(3);
-        TreeNode node6 = new TreeNode(4);
-
-        rootNode.left = node1;
-        rootNode.right = node2;
-
-        node1.left = node3;
-        node1.right = node4;
-
-        node2.left = node5;
-        node2.right = node6;
-
+        TreeNode root = TreeNode.initTreeByLoop(new Integer[]{1, 2, 2, 3, 4, 4, 3});
         LeetCode101 leetcode101 = new LeetCode101();
-        System.out.println(leetcode101.isSymmetric2(rootNode));
+        System.out.println(leetcode101.isSymmetric2(root));
     }
 }
