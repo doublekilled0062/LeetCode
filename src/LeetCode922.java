@@ -39,4 +39,28 @@ public class LeetCode922 {
         }
         return A;
     }
+
+    /**
+     * 还是官方题解快点
+     * 原因是 上面的每次都回到循环开始有重复判断
+     * 不如直接找到一个合适的
+     * 然后 上机结果 实际并没有快
+     * @param A
+     * @return
+     */
+    public int[] sortArrayByParityII2(int[] A) {
+        int j = 1;
+        for(int i = 0; i < A.length - 1; i += 2){
+            if((A[i] & 1) != 0){
+                while ((A[j] & 1) != 0){
+                    j = j + 2;
+                }
+                //不用进行边界判断，因为只要有一个非法的 肯定能在奇数位也找到一个
+                int temp = A[i];
+                A[i] = A[j];
+                A[j] = temp;
+            }
+        }
+        return A;
+    }
 }
