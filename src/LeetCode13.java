@@ -94,4 +94,62 @@ public class LeetCode13 {
         }
         return result;
     }
+
+    /**
+     * 所以这样快的毫无意义 19ms 超过100%
+     * @param s
+     * @return
+     */
+    public int romanToInt2(String s) {
+        if(s == null){
+            return 0;
+        }
+        int len = s.length();
+        char lastc = ' ';
+        char[] chars = s.toCharArray();
+        int result = 0;
+        for(int i = len - 1; i >=0; i--){
+            int num = 0;
+            switch (chars[i]){
+                case 'I':
+                    if(lastc != ' ' && (lastc == 'V' || lastc == 'X')){
+                        num = -1;
+                    }else {
+                        num = 1;
+                    }
+                    break;
+                case 'V':
+                    num = 5;
+                    break;
+                case 'X':
+                    if(lastc != ' ' && (lastc == 'L' || lastc == 'C')){
+                        num = -10;
+                    }else {
+                        num = 10;
+                    }
+                    break;
+                case 'L':
+                    num = 50;
+                    break;
+                case 'C':
+                    if(lastc != ' ' && (lastc == 'D' || lastc == 'M')){
+                        num = -100;
+                    }else {
+                        num = 100;
+                    }
+                    break;
+                case 'D':
+                    num = 500;
+                    break;
+                case 'M':
+                    num = 1000;
+                    break;
+                default:
+                    break;
+            }
+            lastc = chars[i];
+            result += num;
+        }
+        return result;
+    }
 }
