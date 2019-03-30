@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,6 +15,11 @@ import java.util.List;
  * ]
  */
 public class LeetCode15 {
+    /**
+     * 同16题 虽然通过了 但是写的不严谨 因为可能会溢出 所以结果中间值最好用long
+     * @param nums
+     * @return
+     */
     public List<List<Integer>> threeSum(int[] nums) {
         if(nums == null || nums.length < 3){
             return new ArrayList<>();
