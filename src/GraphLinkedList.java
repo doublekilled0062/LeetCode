@@ -189,7 +189,9 @@ public class GraphLinkedList extends Graph{
         public int id;
         public int dist; //最短路径用 从起始顶点到这个顶点的距离
 
-        public int f; // f(i) = g(i) + h(i) g(i)为dist h(i)为曼哈顿距离
+        // 启发函数 单源最短路径下 f = dist
+        // A*下 f = dist + manhattan
+        public int f;
 
         public int x;//坐标
         public int y;//坐标
