@@ -55,4 +55,37 @@ public class LeetCode22 {
             addAll(result);
         }};
     }
+
+    /**
+     * 看题解算法也挺暴力 直接生成全排列 然后判断是否有效
+     * @param n
+     * @return
+     */
+    public List<String> generateParenthesis2(int n) {
+        List<String> result = new ArrayList();
+        generateAll(new char[2 * n], 0, result);
+        return result;
+    }
+
+    public void generateAll(char[] current, int pos, List<String> result) {
+        if (pos == current.length) {
+            if (valid(current))
+                result.add(new String(current));
+        } else {
+            current[pos] = '(';
+            generateAll(current, pos+1, result);
+            current[pos] = ')';
+            generateAll(current, pos+1, result);
+        }
+    }
+
+    public boolean valid(char[] current) {
+        int balance = 0;
+        for (char c: current) {
+            if (c == '(') balance++;
+            else balance--;
+            if (balance < 0) return false;
+        }
+        return (balance == 0);
+    }
 }
