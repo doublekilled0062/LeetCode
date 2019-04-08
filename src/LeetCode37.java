@@ -74,7 +74,11 @@ public class LeetCode37 {
         if(board[i][j] != '.'){
             solve(board, index + 1, indexMatrix);
         }else {
+            int blockIndex = (i/3) + (j/3)*3;
             for(int k = 1; k <= 9; k++){
+                if(rowMatrix[i][k - 1] || colMatrix[j][k-1] || blockMatrix[blockIndex][k-1]){
+                    continue;
+                }
                 indexMatrix[index] = k;
                 if(isValidSudoku(board, index, indexMatrix)){
                     solve(board, index + 1, indexMatrix);
@@ -139,5 +143,64 @@ public class LeetCode37 {
                 {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
                 {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
         });
+    }
+
+    class Solution {
+        private boolean[][] rowMatrix = new boolean[9][9];
+        private boolean[][] colMatrix = new boolean[9][9];
+        private boolean[][] blockMatrix = new boolean[9][9];
+
+        public void solveSudoku(char[][] board) {
+            //先用board初始化
+            for(int i = 0; i < 9; i++){
+                for(int j = 0; j < 9; j++){
+                    if(board[i][j] == '.'){
+                        continue;
+                    }else {
+                        int num = board[i][j] - '1';
+                        rowMatrix[i][num] = true;
+                        colMatrix[j][num] = true;
+                        //判断块是否重复
+                        int blockIndex = (i/3) + (j/3)*3;
+                        blockMatrix[blockIndex][num] = true;
+                    }
+                }
+            }
+            solve(board, 0);
+        }
+
+        private boolean solve(char[][] board, int index) {
+            if(index == 81){
+                return true;
+            }
+            int i = index / 9;
+            int j = index % 9;
+            if(board[i][j] != '.'){
+                if(solve(board, index + 1)){
+                    return true;
+                }
+            }else {
+                int blockIndex = (i/3) + (j/3)*3;
+                for(int k = 1; k <= 9; k++){
+                    if(rowMatrix[i][k - 1] || colMatrix[j][k-1] || blockMatrix[blockIndex][k-1]){
+                        continue;
+                    }
+                    board[i][j] = (char)(k + '0');
+                    rowMatrix[i][k - 1] = true;
+                    colMatrix[j][k - 1] = true;
+                    blockMatrix[blockIndex][k - 1] = true;
+                    if (solve(board, index + 1)) {
+                        return true;
+                    } else {
+                        // 回溯
+                        rowMatrix[i][k - 1] = false;
+                        colMatrix[j][k - 1] = false;
+                        blockMatrix[blockIndex][k - 1] = false;
+                        board[i][j] = '.';
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
