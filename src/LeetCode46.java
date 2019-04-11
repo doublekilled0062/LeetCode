@@ -40,13 +40,17 @@ public class LeetCode46 {
             return;
         }
         for(int i = index; i < nums.length; i++){
-            int temp = nums[i];
-            nums[i] = nums[index];
-            nums[index] = temp;
-            permute(index + 1, nums, result);
-            temp = nums[i];
-            nums[i] = nums[index];
-            nums[index] = temp;
+            if(i == index){
+                permute(index + 1, nums, result);
+            }else {
+                int temp = nums[i];
+                nums[i] = nums[index];
+                nums[index] = temp;
+                permute(index + 1, nums, result);
+                temp = nums[i];
+                nums[i] = nums[index];
+                nums[index] = temp;
+            }
         }
     }
 
@@ -71,6 +75,38 @@ public class LeetCode46 {
             List<Integer> list = new LinkedList<>(temp);
             list.add(i, nums[index]);
             permute2(index + 1, nums, list, result);
+        }
+    }
+
+    public List<List<Integer>> permute3(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<Integer>();
+        dfs(nums, res, path, new boolean[nums.length]);
+        return res;
+    }
+
+    /**
+     * 判重
+     * @param nums
+     * @param res
+     * @param path
+     * @param used
+     */
+    public void dfs(int[] nums, List<List<Integer>> res, List<Integer> path, boolean[] used){
+        if (nums.length == path.size()) {
+            res.add(new ArrayList<>(path));
+            return;
+        } else {
+            for (int i = 0; i < nums.length; i++) {
+                if (used[i]){
+                    continue;
+                }
+                used[i] = true;
+                path.add(nums[i]);
+                dfs(nums, res, path, used);
+                used[i] = false;
+                path.remove(path.size() - 1);
+            }
         }
     }
 
