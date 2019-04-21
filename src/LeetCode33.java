@@ -55,12 +55,46 @@ public class LeetCode33 {
         return -1;
     }
 
+    /**
+     * 这样思路清晰点
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search2(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length - 1;
+        while (start <= end){
+            int mid = start + (end - start)/2;
+            if(nums[mid] == target){
+                return mid;
+            }
+            //左半边有序
+            if(nums[mid] >= nums[start]){
+                if(nums[start] <= target && nums[mid] > target){
+                    //在左边
+                    end = mid - 1;
+                }else {
+                    start = mid + 1;
+                }
+            }else {
+                //右半边有序
+                if(nums[mid] < target && nums[end] >= target){
+                    //再右边
+                    start = mid + 1;
+                }else {
+                    end = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
     public static void main(String[] args) {
         LeetCode33 leetCode33 = new LeetCode33();
         int a[] = {4, 5, 6, 7, 8, 9, 0, 1, 2, 3};
         int b[] = {0, 1, 2, 3, 4, 5, 6};
         int c[] = {3, 1};
-        System.out.println(leetCode33.search(a, 3));
+        System.out.println(leetCode33.search2(a, 3));
         System.out.println(leetCode33.search(b, 4));
         System.out.println(leetCode33.search(c, 1));
     }
