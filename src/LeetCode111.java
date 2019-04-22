@@ -80,8 +80,8 @@ public class LeetCode111 {
         if(root == null){
             return 0;
         }
-        int left = minDepth2(root.left);
-        int right = minDepth2(root.right);
+        int left = minDepth3(root.left);
+        int right = minDepth3(root.right);
         if(left != 0 && right != 0){
             return 1 + Math.min(left, right);
         }else {
