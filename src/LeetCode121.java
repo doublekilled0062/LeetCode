@@ -37,6 +37,32 @@ public class LeetCode121 {
     }
 
     /**
+     * 标准一维动态规划
+     * 写出这个来其实leetcode123 就不用开始用O(n^2)那个复杂度的解法了
+     * 直接会跳到两次一维动态规划
+     * @param prices
+     * @return
+     */
+    public int maxProfit4(int[] prices) {
+        if(prices == null || prices.length == 0){
+            return 0;
+        }
+        int[] dp = new int[prices.length];
+        int curMin = prices[0];
+        for(int i = 1; i < dp.length; i++){
+            if(curMin > prices[i]){
+                curMin = prices[i];
+            }
+            if(prices[i] - curMin > dp[i-1]){
+                dp[i] = prices[i] - curMin;
+            }else {
+                dp[i] = dp[i-1];
+            }
+        }
+        return dp[prices.length - 1];
+    }
+
+    /**
      * 肯定需要优化成一维 4ms 37.5%
      * @param prices
      * @return
@@ -80,7 +106,7 @@ public class LeetCode121 {
 
     public static void main(String[] args) {
         LeetCode121 leetCode121 = new LeetCode121();
-        System.out.println(leetCode121.maxProfit2(new int[]{7,1,5,3,6,4}));
-        System.out.println(leetCode121.maxProfit2(new int[]{7,6,4,3,1}));
+        System.out.println(leetCode121.maxProfit4(new int[]{7,1,5,3,6,4}));
+        System.out.println(leetCode121.maxProfit4(new int[]{7,6,4,3,1}));
     }
 }
