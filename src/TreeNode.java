@@ -41,6 +41,9 @@ public class TreeNode {
             return null;
         }
         TreeNode root = new TreeNode(values[0]);
+        if(values.length == 1){
+            return root;
+        }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         int index = 1;
