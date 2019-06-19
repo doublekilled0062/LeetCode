@@ -37,4 +37,32 @@ public class LeetCode21 {
         }
         return head;
     }
+
+    /**
+     * 这个省去了链表节点的复制过程
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode(0);
+        ListNode head = result;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                result.next = l1;
+                l1 = l1.next;
+            } else {
+                result.next = l2;
+                l2 = l2.next;
+            }
+            result = result.next;
+        }
+        if (l1 != null) {
+            result.next = l1;
+        }
+        if (l2 != null) {
+            result.next = l2;
+        }
+        return head.next;
+    }
 }
