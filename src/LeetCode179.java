@@ -49,6 +49,12 @@ public class LeetCode179 {
         return builder.toString();
     }
 
+    /**
+     * 快排
+     * @param nums
+     * @param start
+     * @param end
+     */
     private void quickSort(String[] nums, int start, int end){
         if(start > end){
             return;
