@@ -16,6 +16,11 @@
  *
  */
 public class LeetCode169 {
+    /**
+     * 摩尔投票法
+     * @param nums
+     * @return
+     */
     public int majorityElement(int[] nums) {
         int result = nums[0];
         int times = 1;
