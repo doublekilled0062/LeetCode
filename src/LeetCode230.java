@@ -50,6 +50,35 @@ public class LeetCode230 {
         return Integer.MIN_VALUE;
     }
 
+    private int res = 0;
+    private int count = 0;
+    private boolean isEnd = false;
+
+    /**
+     * 递归法
+     * @param root
+     * @param k
+     * @return
+     */
+    public int kthSmallest1(TreeNode root, int k) {
+        count = k;
+        inorder(root);
+        return res;
+    }
+    private void inorder(TreeNode root) {
+        if(root != null) {
+            inorder(root.left);
+            if(!isEnd) {
+                return;
+            }
+            if(--count == 0) {
+                res = root.val;
+                isEnd = true;
+            }
+            inorder(root.right);
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode node = TreeNode.initTreeByLoop(new Integer[]{3, 1, 4, null, 2});
         LeetCode230 leetcode230 = new LeetCode230();
