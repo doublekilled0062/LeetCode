@@ -1,0 +1,74 @@
+import java.util.Arrays;
+
+/**
+ * 274. H指数
+ *
+ * 给定一位研究者论文被引用次数的数组（被引用次数是非负整数）。
+ * 编写一个方法，计算出研究者的 h 指数。
+ * h 指数的定义: “h 代表“高引用次数”（high citations），
+ * 一名科研人员的 h 指数是指他（她）的 （N 篇论文中）至多有 h 篇论文分别被引用了至少 h 次。
+ * （其余的 N - h 篇论文每篇被引用次数不多于 h 次。）”
+ *
+ * 示例:
+ * 输入: citations = [3,0,6,1,5]
+ * 输出: 3
+ * 解释: 给定数组表示研究者总共有 5 篇论文，每篇论文相应的被引用了 3, 0, 6, 1, 5 次。
+ *      由于研究者有 3 篇论文每篇至少被引用了 3 次，其余两篇论文每篇被引用不多于 3 次，所以她的 h 指数是 3。
+ *  
+ * 说明: 如果 h 有多种可能的值，h 指数是其中最大的那个。
+ *
+ * 来源：力扣（LeetCode）
+ * 链接：https://leetcode-cn.com/problems/h-index
+ * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+public class LeetCode274 {
+    public int hIndex(int[] citations) {
+        if(citations == null || citations.length == 0){
+            return 0;
+        }
+        Arrays.sort(citations);
+        int max = 0;
+        for(int i = 0; i < citations.length; i++){
+            if(citations[i] >= citations.length - i){
+                max = citations.length - i;
+                break;
+            }
+        }
+
+        return  max;
+    }
+
+    /**
+     * 效率高的思路 用计数排序 大于len的引用计为len
+     * @param citations
+     * @return
+     */
+    public int hIndex1(int[] citations) {
+        int len = citations.length;
+        int[] sortNums = new int[len + 1];
+
+        // 计数排序
+        for (int i = 0; i < len; i++){
+            if(citations[i] < len){
+                sortNums[citations[i]]++;
+            }else {
+                sortNums[len]++;
+            }
+        }
+
+        // 找出最大的 k
+        int total = 0;
+        for (int k = len; k >= 0; k--){
+            total += sortNums[k];
+            if(k <= total){
+                return k;
+            }
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        LeetCode274 leetCode274 = new LeetCode274();
+        System.out.println(leetCode274.hIndex1(new int[]{3,0,6,1,5}));
+    }
+}
