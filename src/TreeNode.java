@@ -75,6 +75,22 @@ public class TreeNode {
         return root;
     }
 
+    public static void bfs(TreeNode root){
+        if(root == null) {
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (queue.size() > 0){
+            int k = queue.size();
+            for(int v = 0; v < k; v++){
+                TreeNode node = queue.poll();
+                queue.offer(node.left);
+                queue.offer(node.right);
+            }
+        }
+        return;
+    }
 
 
     public static void main(String[] args) {
